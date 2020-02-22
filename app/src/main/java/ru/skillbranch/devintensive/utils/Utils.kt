@@ -1,14 +1,15 @@
 package ru.skillbranch.devintensive.utils
 
 object Utils {
-    fun parseFullName(fullName:String?) : Pair<String, String> { // not null
+    fun parseFullName(fullName:String?) : Pair<String?, String?> { // not null
         val parts: List<String>? = fullName?.split(" ")
 
-        var firstName = parts?.getOrNull(0)?:"#Null first name#"
-        if (firstName.isEmpty()) firstName = "=Empty Name="
+        var firstName = parts?.getOrNull(0)  //?:"#Null first name#"
+        if(firstName?.isEmpty()==true) firstName = null
 
-        var lastName = parts?.getOrNull(1)?:"#Null last name#"
-        if(lastName.isEmpty()) lastName = "=Empty Last Name="
+
+        var lastName = parts?.getOrNull(1) //?:"#Null last name#"
+        if(lastName?.isEmpty()==true) lastName = null
 
         return firstName to lastName
     }
@@ -24,17 +25,34 @@ object Utils {
             "e","yu","ya","i","","")
 
         var newString:String = ""
+        var status = false
         for (i in 0 until payload.length) {
+
+
             for(j in 0 until englishLetter.size){
                 if (payload[i].toString() == russianLetter[j])
+                {
                     newString += englishLetter[j]
+                    status = true
+                }
             }
-            if (payload[i].toString()==divider) newString+=divider
+            if (payload[i].toString()==" ") {
+                newString+=divider
+                status = true
+            }
+            if (!status) newString += payload[i]
+            status = false
         }
       return newString
     }
 
-    fun toInitials(firstName: String?, lastName: String?): String? {
-        return "${firstName?.get(0)}${lastName?.get(0)}"
+    fun toInitials(firstName: String? = null, lastName: String? = null): String? {
+
+        val firstNameLatter = if(firstName.isNullOrEmpty() || firstName.isNullOrBlank()) null else firstName?.get(0)?.toUpperCase()
+        val lastNameLatter = if(lastName.isNullOrEmpty() || lastName.isNullOrBlank()) null else lastName?.get(0)?.toUpperCase()
+
+
+        val result = if (firstNameLatter==null && lastNameLatter==null) null else "$firstNameLatter${lastNameLatter?:""}"
+        return result
     }
 }
