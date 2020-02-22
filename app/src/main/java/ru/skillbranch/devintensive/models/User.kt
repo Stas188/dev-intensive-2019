@@ -15,13 +15,13 @@ data class User(
 )
 {
     data class Builder(
-        var id:String="",
+        var id:String="0",
         var firstName:String?=null,
         var lastName:String?=null,
         var avatar:String?=null,
         var rating:Int = 0,
         var respect:Int = 0,
-        var lastVisit: Date? = null,
+        var lastVisit: Date? = Date(),
         var isOnline:Boolean = false) {
 
         fun id(id: String) = apply { this.id = id }
@@ -45,9 +45,9 @@ data class User(
     constructor(id :String) : this(id, "John", "Doe")
 
     init{
-        println("It's Alive !!! \n" +
-                if(lastName=="Doe") "His name is $firstName $lastName" else "And his name is $firstName $lastName !!!"
-        )
+        //println("It's Alive !!! \n" +
+         //       if(lastName=="Doe") "His name is $firstName $lastName" else "And his name is $firstName $lastName !!!"
+        //)
     }
     private fun abc(firstName: String?){
 

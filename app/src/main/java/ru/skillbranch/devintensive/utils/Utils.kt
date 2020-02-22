@@ -2,7 +2,8 @@ package ru.skillbranch.devintensive.utils
 
 object Utils {
     fun parseFullName(fullName:String?) : Pair<String?, String?> { // not null
-        val parts: List<String>? = fullName?.split(" ")
+
+        val parts: List<String>? = fullName?.trimStart()?.split(" ")
 
         var firstName = parts?.getOrNull(0)  //?:"#Null first name#"
         if(firstName?.isEmpty()==true) firstName = null
@@ -20,8 +21,8 @@ object Utils {
            "ж", "з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ч", "ц","ш", "щ", "э","ю",
            "я", "ы","ъ","ь")
         val englishLetter = arrayOf("A","B","V","G","D","E","E","Zh","Z","I","I","K","L","M","N","O","P","R","S",
-            "T","U","F","H","C","Ch","Sh","Sh","E","Yu","Ya","I","", "'", "a","b","v","g","d","e",
-            "e","zh","z","i","i","k","l","m","n","o","p","r","s","t","u","f","h","c","ch","sh","sh",
+            "T","U","F","H","C","C","Sh","'Sh'","E","Yu","Ya","I","", "", "a","b","v","g","d","e",
+            "e","zh","z","i","i","k","l","m","n","o","p","r","s","t","u","f","h","c","c","sh","sh",
             "e","yu","ya","i","","")
 
         var newString:String = ""
@@ -48,11 +49,11 @@ object Utils {
 
     fun toInitials(firstName: String? = null, lastName: String? = null): String? {
 
-        val firstNameLatter = if(firstName.isNullOrEmpty() || firstName.isNullOrBlank()) null else firstName?.get(0)?.toUpperCase()
-        val lastNameLatter = if(lastName.isNullOrEmpty() || lastName.isNullOrBlank()) null else lastName?.get(0)?.toUpperCase()
+        val firstNameLatter = if(firstName.isNullOrEmpty() || firstName.isNullOrBlank()) null else firstName.trimStart().get(0).toUpperCase()
+        val lastNameLatter = if(lastName.isNullOrEmpty() || lastName.isNullOrBlank()) null else lastName.trimStart().get(0).toUpperCase()
 
 
-        val result = if (firstNameLatter==null && lastNameLatter==null) null else "$firstNameLatter${lastNameLatter?:""}"
+        val result = if (firstNameLatter==null && lastNameLatter==null) null else "${firstNameLatter?:""}${lastNameLatter?:""}"
         return result
     }
 }
