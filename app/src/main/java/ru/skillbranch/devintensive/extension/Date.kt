@@ -30,12 +30,12 @@ fun Date.humanizeDiff(date:Date = Date()): String {
     val time = this.time
     val timeNew = date.time
     var deltaTime = timeNew - time
-    if(deltaTime < 0) return "Не могу отправится в будущее :("
+    //if(deltaTime < 0) return "Не могу отправится в будущее :("
 
         deltaTime = deltaTime / 10 * 10 // Если так не сделать не ловится значение 1 сек т.к. дельта = 1001 а не 1000
 
     val result = when(deltaTime){
-        in  0..SECOND -> "только что"
+        in  -1..SECOND -> "только что"
         in  1 * SECOND..45 * SECOND -> "несколько секунд назад"
         in 45 * SECOND..75 * SECOND -> "минуту назад"
         in 75 * SECOND..45 * MINUTE -> "${deltaTime / MINUTE} ${timeToHumanize(deltaTime/ MINUTE,TimeUnits.MINUTE)} назад"
