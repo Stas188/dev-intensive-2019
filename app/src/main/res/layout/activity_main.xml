@@ -9,12 +9,12 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tv_text"
+        android:id="@+id/textTxt"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="Hello World!"
         android:gravity="center"
-        android:textSize="@dimen/spacing_large_24"
+        android:textSize="@dimen/font_large_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -35,6 +35,7 @@
         >
         <EditText
             android:id="@+id/et_message"
+            android:imeOptions="actionDone"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

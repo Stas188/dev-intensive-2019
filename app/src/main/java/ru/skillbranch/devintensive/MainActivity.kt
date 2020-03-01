@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     lateinit var benderImage : ImageView
     lateinit var textText:TextView
-    lateinit var messageEt:EditText
+    lateinit var etmessage:EditText
     lateinit var sendBtn:ImageView
     lateinit var benderObj: Bender
 
@@ -28,12 +28,16 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         //findViewById<>()
         benderImage = iv_bender
-        textText = tv_text
-        messageEt = et_message
+        textText = textTxt
+        etmessage = et_message
         sendBtn = iv_send
 
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
         val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
+        val message = savedInstanceState?.getString("MESSAGE")?: ""
+
+        etmessage.setText(message)
+
         Log.d("M_MainActivity","Question is = $question")
         benderObj = Bender(Bender.Status.valueOf(status),Bender.Question.valueOf(question))
 
@@ -77,8 +81,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onClick(v: View?) {
         if(v?.id == R.id.iv_send){
-           val(phrase,color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
-            messageEt.setText("")
+           val(phrase,color) = benderObj.listenAnswer(etmessage.text.toString().toLowerCase())
+            etmessage.setText("")
             val(r,g,b) = color
             benderImage.setColorFilter(Color.rgb(r,g,b),PorterDuff.Mode.MULTIPLY)
             textText.text = phrase
@@ -89,6 +93,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.d("M_MainActivity","SavE INSTANCE")
+        outState?.putString("MESSAGE",etmessage.text.toString())
         outState?.putString("STATUS",benderObj.status.name)
         outState?.putString("QUESTION",benderObj.question.name)
     }
